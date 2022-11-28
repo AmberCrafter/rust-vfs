@@ -75,6 +75,7 @@ impl VPath for PathBuf {
     fn read_dir(&self) -> Result<Box<dyn Iterator<Item = String> + 'static>> {
         // fs::read_dir(path) -> Result<ReadDir, Error>
         // ReadDir -> Result<DirEntry, Error>
+        // DirEntry -> path
         let read_dir = fs::read_dir(self.as_path())?;
         let iter = read_dir.map(|entry| entry.unwrap().path().to_string_lossy().to_string());
         Ok(Box::new(iter))
